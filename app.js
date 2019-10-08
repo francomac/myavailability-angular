@@ -2,9 +2,10 @@
 
 let express = require('express');
 let path = require('path'); // to take care of file paths
-let passport = require('passport');
+// let passport = require('passport');
 // let session = require('express-session');
 let mongoose = require('mongoose');
+let helmet = require('helmet');
 
 const keys = require('./config/keys_prod');
 // Load Middleware
@@ -28,7 +29,12 @@ let log = require('noogger').init(logParams);
 // Init App
 let app = express();
 
+// BodyParser MIDDELWARE
+app.use(express.json());
+app.use(express.urlencoded({  extended: false  }));
+
 // Init MIDDELWARE
+app.use(helmet())
 app.use(corsHandler);
 app.use(errorHandler);
 app.use(expressValidator);
@@ -36,12 +42,11 @@ app.use(expressValidator);
 // app.use(passport.session());
 
 // Set Static Folder
-app.use('/',express.static(path.join(__dirname, '/public/frontend')));
-console.log('dist path: ',__dirname);
-
-// BodyParser MIDDELWARE
-app.use(express.json());
-app.use(express.urlencoded({  extended: false  }));
+// Catch all other routes and return the index file
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
+app.use(express.static(path.join(__dirname, '/public')));
 
 // Handle session
 /* app.use(
@@ -53,7 +58,6 @@ app.use(express.urlencoded({  extended: false  }));
 ); */
 
 // Routes
-// app.use('/', (req, res) => {});
 app.use('/api/doctors', require('./routes/doctors'));
 
 // Database Connection
