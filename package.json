@@ -17,7 +17,8 @@
     "noogger": "0.1.8",
     "passport": "0.4.0",
     "passport-jwt": "4.0.0",
-    "passport-local": "1.0.0"
+    "passport-local": "1.0.0",
+    "path": "0.12.7"
   },
   "devDependencies": {
     "@types/jasmine": "~2.8.8",

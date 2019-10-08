@@ -1,7 +1,7 @@
 'use strict';
 
 let express = require('express');
-// let path = require('path'); // to take care of file paths
+let path = require('path'); // to take care of file paths
 let passport = require('passport');
 // let session = require('express-session');
 let mongoose = require('mongoose');
@@ -36,8 +36,8 @@ app.use(expressValidator);
 // app.use(passport.session());
 
 // Set Static Folder
-// app.use(express.static(path.join(__dirname, '/public')));
-// console.log('dist path: ',__dirname);
+app.use(express.static(path.join(__dirname, '/public')));
+console.log('dist path: ',__dirname);
 
 // BodyParser MIDDELWARE
 app.use(express.json());
@@ -53,6 +53,7 @@ app.use(express.urlencoded({  extended: false  }));
 ); */
 
 // Routes
+// app.use('/', (req, res) => {});
 app.use('/api/doctors', require('./routes/doctors'));
 
 // Database Connection
