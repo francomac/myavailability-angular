@@ -36,7 +36,7 @@ app.use(expressValidator);
 // app.use(passport.session());
 
 // Set Static Folder
-app.use(express.static(path.join(__dirname, '/public')));
+app.use('/',express.static(path.join(__dirname, '/public/frontend')));
 console.log('dist path: ',__dirname);
 
 // BodyParser MIDDELWARE
